@@ -65,6 +65,7 @@ class XiaomiData {
     _era3,
     _era4,
     _era5,
+    _era6,
   ];
 
   // 阶段一：创业期 2010-2013
@@ -382,6 +383,56 @@ class XiaomiData {
         description: '小米集团2025全年营收预计突破4000亿元，汽车业务贡献显著。',
         detail: '小米从手机公司成功转型为"人车家全生态"科技集团。汽车业务营收占比快速提升，IoT业务持续稳健增长。小米已跻身全球顶级科技公司行列。',
         tag: '里程碑',
+      ),
+    ],
+  );
+
+  // 阶段六：AI的星辰大海 2025-2030
+  static final TimelineEra _era6 = TimelineEra(
+    id: 'era6',
+    title: 'AI的星辰大海',
+    subtitle: '端侧AI、大模型、具身智能',
+    yearRange: '2025-2030',
+    colorValue: 0xFF7C4DFF,
+    icon: Icons.auto_awesome,
+    events: [
+      TimelineEvent(
+        date: '2025.02',
+        title: 'MiMo大模型发布',
+        description: '小米发布自研MiMo系列大语言模型，支持端侧部署，赋能手机、汽车、IoT全生态。',
+        detail: 'MiMo大模型在多个基准测试中表现出色，尤其在中文理解和多轮对话方面。小米采用端云协同架构，既保证隐私，又提供强大AI能力。',
+        tag: 'AI',
+        isHighlight: true,
+      ),
+      TimelineEvent(
+        date: '2025.06',
+        title: '小米AI眼镜立项',
+        description: '小米启动AI眼镜项目，将大模型能力与AR技术结合，打造下一代智能穿戴设备。',
+        detail: '小米AI眼镜集成视觉大模型，支持实时翻译、物体识别、导航指引等功能，是小米在AI硬件领域的重要布局。',
+        tag: 'AI',
+      ),
+      TimelineEvent(
+        date: '2025.10',
+        title: '小米16系列搭载端侧大模型',
+        description: '小米16系列全面搭载端侧大模型，AI能力贯穿拍照、语音、翻译、写作等全场景。',
+        detail: '小米16系列是小米AI战略的集大成之作。端侧大模型让AI不再依赖云端，保护隐私的同时实现毫秒级响应。',
+        tag: 'AI',
+        isHighlight: true,
+      ),
+      TimelineEvent(
+        date: '2026',
+        title: '小米机器人商业化',
+        description: '小米仿生机器人进入商业化阶段，结合大模型实现更智能的交互和任务执行。',
+        detail: '小米将持续投入具身智能研发，让机器人真正走进千家万户。从铁蛋到铁大，小米在机器人领域的布局正在加速。',
+        tag: 'AI',
+      ),
+      TimelineEvent(
+        date: '2025-2030',
+        title: '小米AI愿景',
+        description: '让AI像水电一样无处不在，每个人都能享受AI带来的美好生活。',
+        detail: '小米的AI战略是"端侧AI+云端大模型+具身智能"三位一体。通过澎湃OS连接人、车、家，让AI真正融入日常生活。小米相信，AI不是少数人的特权，而是每个人的权利。',
+        tag: '愿景',
+        isHighlight: true,
       ),
     ],
   );
