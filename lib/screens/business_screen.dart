@@ -62,7 +62,7 @@ class BusinessScreen extends StatelessWidget {
                       height: 180,
                       color: color.withOpacity(0.1),
                       child: Center(
-                        child: Text(segment.icon, style: const TextStyle(fontSize: 64)),
+                        child: Icon(segment.icon, size: 64, color: color),
                       ),
                     );
                   },

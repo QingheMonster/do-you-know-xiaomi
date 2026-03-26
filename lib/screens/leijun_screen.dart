@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../data/leijun_data.dart';
+import '../models/timeline_event.dart';
 import '../theme/app_theme.dart';
 
 class LeijunScreen extends StatelessWidget {
