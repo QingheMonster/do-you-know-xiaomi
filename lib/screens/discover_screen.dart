@@ -58,7 +58,10 @@ class DiscoverScreen extends StatelessWidget {
           return GestureDetector(
             onTap: () async {
               final url = Uri.parse(video['videoUrl'] as String);
-              if (await canLaunchUrl(url)) {
+              try {
+                await launchUrl(url, mode: LaunchMode.platformDefault);
+              } catch (e) {
+                // Fallback: try external application
                 await launchUrl(url, mode: LaunchMode.externalApplication);
               }
             },

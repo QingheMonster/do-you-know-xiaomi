@@ -26,7 +26,7 @@ class HonorsData {
       'desc': '小米SU7 Ultra原型车在纽博格林北环赛道创下6分46秒874的圈速纪录，超越保时捷Taycan Turbo GT。',
       'source': '纽博格林赛道官方认证',
       'image': null,
-      'videoUrl': 'https://www.bilibili.com/video/BV1xx421J7GR/',
+      'videoUrl': 'https://www.bilibili.com/video/BV1GJ411x7h7/',
       'share': '小米SU7 Ultra纽北圈速6分46秒874，超越保时捷Taycan Turbo GT，纽北最速四门电车！来源：纽博格林官方认证',
     },
     {
@@ -35,7 +35,7 @@ class HonorsData {
       'desc': '2023年12月28日小米汽车技术发布会，雷军亲自讲解小米SU7核心技术：V8s电机、CTB电池、全栈智驾。',
       'source': '小米官方发布会',
       'image': null,
-      'videoUrl': 'https://www.bilibili.com/video/BV1Qw411F7gG/',
+      'videoUrl': 'https://www.bilibili.com/video/BV1Nw411o76k/',
       'share': '小米汽车技术发布会：自研V8s电机27200rpm全球最高，CTB一体化电池，全栈自研智能驾驶。',
     },
     {
@@ -44,7 +44,7 @@ class HonorsData {
       'desc': '2024年3月28日小米SU7正式上市，售价21.59万-29.99万元，上市24小时大定突破88898台。',
       'source': '小米官方发布会',
       'image': null,
-      'videoUrl': 'https://www.bilibili.com/video/BV1am411S7wz/',
+      'videoUrl': 'https://www.bilibili.com/video/BV1am411i7P5/',
       'share': '小米SU7正式上市，售价21.59万起，24小时大定88898台。小米造车三年，一鸣惊人。',
     },
     {

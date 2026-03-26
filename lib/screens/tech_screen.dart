@@ -44,7 +44,12 @@ class TechScreen extends StatelessWidget {
     );
   }
 
-  // ========== 荣誉 ==========
+  Future<void> _launchVideo(String url) async {
+    try {
+      await launchUrl(Uri.parse(url), mode: LaunchMode.platformDefault);
+    } catch (_) {}
+  }
+
   Widget _buildHonorsTab(BuildContext context) {
     final items = HonorsData.items;
     return ListView.builder(
@@ -54,100 +59,77 @@ class TechScreen extends StatelessWidget {
         final item = items[index];
         return Container(
           margin: const EdgeInsets.only(bottom: 14),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 8, offset: const Offset(0, 2)),
-            ],
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (item['image'] != null)
-                ClipRRect(
-                  borderRadius: const BorderRadius.only(topLeft: Radius.circular(16), topRight: Radius.circular(16)),
-                  child: Image.network(item['image'] as String, height: 160, width: double.infinity, fit: BoxFit.cover,
-                    errorBuilder: (_, __, ___) => const SizedBox.shrink()),
+          decoration: AppTheme.cardDecoration,
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  decoration: BoxDecoration(color: AppTheme.xiaomiOrange.withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
+                  child: Text(item['category'] as String,
+                    style: const TextStyle(fontSize: 11, color: AppTheme.xiaomiOrange, fontWeight: FontWeight.w600)),
                 ),
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                const SizedBox(height: 10),
+                Text(item['title'] as String,
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Color(0xFF1A1A1A))),
+                const SizedBox(height: 8),
+                Text(item['desc'] as String,
+                  style: TextStyle(fontSize: 14, color: Colors.grey.shade700, height: 1.6)),
+                const SizedBox(height: 8),
+                Row(
                   children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                      decoration: BoxDecoration(color: AppTheme.xiaomiOrange.withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
-                      child: Text(item['category'] as String,
-                        style: const TextStyle(fontSize: 11, color: AppTheme.xiaomiOrange, fontWeight: FontWeight.w600)),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(item['title'] as String,
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF1A1A1A))),
-                    const SizedBox(height: 8),
-                    Text(item['desc'] as String,
-                      style: TextStyle(fontSize: 14, color: Colors.grey.shade700, height: 1.6)),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Icon(Icons.source, size: 14, color: Colors.grey.shade400),
-                        const SizedBox(width: 4),
-                        Text(item['source'] as String,
-                          style: TextStyle(fontSize: 12, color: Colors.grey.shade400, fontStyle: FontStyle.italic)),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        if (item['videoUrl'] != null)
-                          Padding(
-                            padding: const EdgeInsets.only(right: 8),
-                            child: OutlinedButton.icon(
-                              onPressed: () async {
-                                final url = Uri.parse(item['videoUrl'] as String);
-                                if (await canLaunchUrl(url)) {
-                                  await launchUrl(url, mode: LaunchMode.externalApplication);
-                                }
-                              },
-                              icon: const Icon(Icons.play_circle_outline, size: 16),
-                              label: const Text('观看视频'),
-                              style: OutlinedButton.styleFrom(
-                                foregroundColor: const Color(0xFF1E88E5),
-                                side: const BorderSide(color: Color(0x331E88E5)),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                              ),
-                            ),
-                          ),
-                        OutlinedButton.icon(
-                          onPressed: () {
-                            Clipboard.setData(ClipboardData(text: item['share'] as String));
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('已复制，可直接粘贴分享'), duration: Duration(seconds: 1)));
-                          },
-                          icon: const Icon(Icons.share, size: 16),
-                          label: const Text('分享'),
+                    Icon(Icons.source, size: 14, color: Colors.grey.shade400),
+                    const SizedBox(width: 4),
+                    Expanded(child: Text(item['source'] as String,
+                      style: TextStyle(fontSize: 12, color: Colors.grey.shade400, fontStyle: FontStyle.italic))),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    if (item['videoUrl'] != null)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8),
+                        child: OutlinedButton.icon(
+                          onPressed: () => _launchVideo(item['videoUrl'] as String),
+                          icon: const Icon(Icons.play_circle_outline, size: 16),
+                          label: const Text('观看视频'),
                           style: OutlinedButton.styleFrom(
-                            foregroundColor: AppTheme.xiaomiOrange,
-                            side: BorderSide(color: AppTheme.xiaomiOrange.withOpacity(0.3)),
+                            foregroundColor: const Color(0xFF1E88E5),
+                            side: const BorderSide(color: Color(0x331E88E5)),
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                           ),
                         ),
-                      ],
+                      ),
+                    OutlinedButton.icon(
+                      onPressed: () {
+                        Clipboard.setData(ClipboardData(text: item['share'] as String));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('已复制'), duration: Duration(seconds: 1)));
+                      },
+                      icon: const Icon(Icons.share, size: 16),
+                      label: const Text('分享'),
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: AppTheme.xiaomiOrange,
+                        side: BorderSide(color: AppTheme.xiaomiOrange.withOpacity(0.3)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      ),
                     ),
                   ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },
     );
   }
 
-  // ========== 芯片 ==========
   Widget _buildChipSection() {
     final items = [
       {'name': '澎湃S1', 'year': '2017', 'desc': '小米首款自研手机SoC芯片，全球第四家拥有手机SoC自研能力的厂商（继苹果、三星、华为之后）。', 'specs': '28nm工艺，8核64位处理器'},
@@ -159,7 +141,6 @@ class TechScreen extends StatelessWidget {
     return _buildList(items, AppTheme.xiaomiOrange);
   }
 
-  // ========== 智能驾驶 ==========
   Widget _buildDriveSection() {
     final items = [
       {'name': '全栈自研智驾', 'year': '2024', 'desc': '小米智能驾驶全栈自研，包含感知、规划、控制三大核心模块。BEV+Transformer+占用网络架构。', 'specs': '城市NOA + 高速NOA'},
@@ -170,7 +151,6 @@ class TechScreen extends StatelessWidget {
     return _buildList(items, const Color(0xFF1E88E5));
   }
 
-  // ========== 智能制造 ==========
   Widget _buildFactorySection() {
     final items = [
       {'name': '小米智能工厂（手机）', 'year': '2020', 'desc': '北京亦庄"黑灯工厂"，全自动化产线，日产手机超万台。央视《大国重器》专题报道。', 'specs': '全自动化，央视报道'},
@@ -180,7 +160,6 @@ class TechScreen extends StatelessWidget {
     return _buildList(items, const Color(0xFFFF6900));
   }
 
-  // ========== 机器人 ==========
   Widget _buildRobotSection() {
     final items = [
       {'name': 'CyberDog 铁蛋', 'year': '2021', 'desc': '小米首款仿生四足机器人，搭载NVIDIA Jetson Xavier NX平台，开放大量开发接口。', 'specs': '售价9999元，开源平台'},
@@ -190,7 +169,6 @@ class TechScreen extends StatelessWidget {
     return _buildList(items, const Color(0xFF00897B));
   }
 
-  // ========== 专利 ==========
   Widget _buildPatentSection() {
     final items = [
       {'name': '全球专利超3.7万件', 'year': '2024', 'desc': '覆盖5G、AI、IoT、智能驾驶等核心技术领域。', 'specs': '中国+海外双布局'},
@@ -201,7 +179,6 @@ class TechScreen extends StatelessWidget {
     return _buildList(items, const Color(0xFF8E24AA));
   }
 
-  // ========== 通用列表 ==========
   Widget _buildList(List<Map<String, String>> items, Color color) {
     return ListView.builder(
       padding: const EdgeInsets.all(16),
@@ -213,10 +190,8 @@ class TechScreen extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 8, offset: const Offset(0, 2)),
-            ],
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.03), blurRadius: 12, offset: const Offset(0, 3))],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -224,30 +199,30 @@ class TechScreen extends StatelessWidget {
               Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                    decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(4)),
-                    child: Text(item['year'] ?? '', style: TextStyle(fontSize: 11, color: color, fontWeight: FontWeight.w600)),
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
+                    child: Text(item['year'] ?? '', style: TextStyle(fontSize: 11, color: color, fontWeight: FontWeight.w700)),
                   ),
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 10),
                   Expanded(
                     child: Text(item['name'] ?? '',
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF1A1A1A))),
+                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Color(0xFF1A1A1A))),
                   ),
                 ],
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 10),
               Text(item['desc'] ?? '', style: TextStyle(fontSize: 14, color: Colors.grey.shade700, height: 1.6)),
               if (item['specs'] != null) ...[
-                const SizedBox(height: 8),
+                const SizedBox(height: 10),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                  decoration: BoxDecoration(color: Colors.grey.shade50, borderRadius: BorderRadius.circular(8)),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(color: color.withOpacity(0.06), borderRadius: BorderRadius.circular(10)),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(Icons.bolt, size: 14, color: color),
                       const SizedBox(width: 4),
-                      Text(item['specs']!, style: TextStyle(fontSize: 12, color: color, fontWeight: FontWeight.w500)),
+                      Text(item['specs']!, style: TextStyle(fontSize: 12, color: color, fontWeight: FontWeight.w600)),
                     ],
                   ),
                 ),
