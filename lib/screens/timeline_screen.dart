@@ -76,13 +76,19 @@ class _TimelineScreenState extends State<TimelineScreen> {
                 ),
               ),
               child: Center(
-                child: Text(
-                  '${era.icon} ${era.title}',
-                  style: TextStyle(
-                    color: isSelected ? Colors.white : Colors.grey.shade700,
-                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
-                    fontSize: 14,
-                  ),
+                child: Row(
+                  children: [
+                    Icon(era.icon, size: 16, color: isSelected ? Colors.white : Colors.grey.shade700),
+                    const SizedBox(width: 6),
+                    Text(
+                      era.title,
+                      style: TextStyle(
+                        color: isSelected ? Colors.white : Colors.grey.shade700,
+                        fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

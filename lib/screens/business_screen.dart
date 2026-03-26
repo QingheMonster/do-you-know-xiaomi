@@ -91,9 +91,10 @@ class BusinessScreen extends StatelessWidget {
                   // 图标和名称
                   Row(
                     children: [
-                      Text(
+                      Icon(
                         segment.icon,
-                        style: const TextStyle(fontSize: 32),
+                        size: 32,
+                        color: Color(segment.colorValue),
                       ),
                       const SizedBox(width: 12),
                       Expanded(

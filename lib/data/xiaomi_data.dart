@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import '../models/timeline_event.dart';
 
 class XiaomiData {
@@ -16,45 +17,42 @@ class XiaomiData {
     BusinessSegment(
       name: '智能手机',
       description: '小米+Redmi双品牌战略，覆盖从千元到万元全价位段',
-      icon: '📱',
+      icon: Icons.smartphone,
       colorValue: 0xFFFF6900,
       highlights: ['2024全球出货量第三', '小米数字系列冲击高端', 'Redmi主打极致性价比'],
-      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Xiaomi_12T_Pro_%282%29.jpg/640px-Xiaomi_12T_Pro_%282%29.jpg',
     ),
     BusinessSegment(
       name: '智能电动汽车',
       description: '2024年小米SU7正式上市，首年交付超13万辆',
-      icon: '🏎️',
+      icon: Icons.directions_car,
       colorValue: 0xFF1E88E5,
       highlights: ['小米SU7上市即爆款', '全栈自研智能驾驶', '纽北最速四门电车'],
-      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Xiaomi_SU7_IMG_7175.jpg/640px-Xiaomi_SU7_IMG_7175.jpg',
     ),
     BusinessSegment(
       name: 'IoT与生活消费',
       description: '全球最大的消费级IoT平台，连接设备超7亿台',
-      icon: '🏠',
+      icon: Icons.devices_other,
       colorValue: 0xFF43A047,
       highlights: ['米家APP为核心入口', '智能家居全品类覆盖', '生态链孵化模式'],
-      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Smart_home_devices.jpg/640px-Smart_home_devices.jpg',
     ),
     BusinessSegment(
       name: '智能电视与大家电',
       description: '小米电视连续多年中国出货量第一，空调冰箱洗衣机全面布局',
-      icon: '📺',
+      icon: Icons.tv,
       colorValue: 0xFF8E24AA,
       highlights: ['电视连续中国第一', '空调/冰箱/洗衣机', '大师系列冲击高端'],
     ),
     BusinessSegment(
       name: '互联网服务',
       description: '澎湃OS为载体，广告+游戏+金融科技',
-      icon: '🌐',
+      icon: Icons.cloud,
       colorValue: 0xFF00ACC1,
       highlights: ['澎湃OS连接万物', '全球MIUI月活6亿+', '金融科技+游戏'],
     ),
     BusinessSegment(
       name: '生态链模式',
       description: '投资+孵化，培育超400家生态链企业',
-      icon: '🔗',
+      icon: Icons.hub,
       colorValue: 0xFFFFB300,
       highlights: ['华米/紫米/石头科技等', '共享小米品牌和渠道', '多家上市公司'],
     ),
@@ -76,7 +74,7 @@ class XiaomiData {
     subtitle: '从MIUI到手机帝国的起点',
     yearRange: '2010-2013',
     colorValue: 0xFFFF6900,
-    icon: '🌱',
+    icon: Icons.eco,
     events: [
       TimelineEvent(
         date: '2010.04.06',
@@ -140,7 +138,7 @@ class XiaomiData {
     subtitle: '国内第一，走向世界',
     yearRange: '2014-2016',
     colorValue: 0xFFE53935,
-    icon: '🚀',
+    icon: Icons.rocket_launch,
     events: [
       TimelineEvent(
         date: '2014年初',
@@ -190,7 +188,7 @@ class XiaomiData {
     subtitle: '绝处逢生，港股上市',
     yearRange: '2016-2018',
     colorValue: 0xFF5E35B1,
-    icon: '🔄',
+    icon: Icons.autorenew,
     events: [
       TimelineEvent(
         date: '2016年',
@@ -246,7 +244,7 @@ class XiaomiData {
     subtitle: '高端化、AIoT、造车',
     yearRange: '2019-2023',
     colorValue: 0xFF1E88E5,
-    icon: '📈',
+    icon: Icons.trending_up,
     events: [
       TimelineEvent(
         date: '2019.01.03',
@@ -319,7 +317,7 @@ class XiaomiData {
     subtitle: '人车家全生态',
     yearRange: '2024-2026',
     colorValue: 0xFF00897B,
-    icon: '🏎️',
+    icon: Icons.directions_car,
     events: [
       TimelineEvent(
         date: '2024.03.28',

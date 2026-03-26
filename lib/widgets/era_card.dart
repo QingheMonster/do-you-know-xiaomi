@@ -44,9 +44,10 @@ class EraCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Center(
-                child: Text(
+                child: Icon(
                   era.icon,
-                  style: const TextStyle(fontSize: 24),
+                  color: color,
+                  size: 24,
                 ),
               ),
             ),
