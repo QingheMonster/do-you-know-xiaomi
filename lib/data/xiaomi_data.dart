@@ -19,6 +19,7 @@ class XiaomiData {
       icon: '📱',
       colorValue: 0xFFFF6900,
       highlights: ['2024全球出货量第三', '小米数字系列冲击高端', 'Redmi主打极致性价比'],
+      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Xiaomi_12T_Pro_%282%29.jpg/640px-Xiaomi_12T_Pro_%282%29.jpg',
     ),
     BusinessSegment(
       name: '智能电动汽车',
@@ -26,6 +27,7 @@ class XiaomiData {
       icon: '🏎️',
       colorValue: 0xFF1E88E5,
       highlights: ['小米SU7上市即爆款', '全栈自研智能驾驶', '纽北最速四门电车'],
+      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Xiaomi_SU7_IMG_7175.jpg/640px-Xiaomi_SU7_IMG_7175.jpg',
     ),
     BusinessSegment(
       name: 'IoT与生活消费',
@@ -33,6 +35,7 @@ class XiaomiData {
       icon: '🏠',
       colorValue: 0xFF43A047,
       highlights: ['米家APP为核心入口', '智能家居全品类覆盖', '生态链孵化模式'],
+      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Smart_home_devices.jpg/640px-Smart_home_devices.jpg',
     ),
     BusinessSegment(
       name: '智能电视与大家电',
@@ -43,7 +46,7 @@ class XiaomiData {
     ),
     BusinessSegment(
       name: '互联网服务',
-      description: 'MIUI/澎湃OS为载体，广告+游戏+金融科技',
+      description: '澎湃OS为载体，广告+游戏+金融科技',
       icon: '🌐',
       colorValue: 0xFF00ACC1,
       highlights: ['澎湃OS连接万物', '全球MIUI月活6亿+', '金融科技+游戏'],
@@ -277,7 +280,7 @@ class XiaomiData {
         isHighlight: true,
       ),
       TimelineEvent(
-        date: '2021.09',
+        date: '2021.08.10',
         title: '仿生机器人CyberDog亮相',
         description: '小米发布第一代仿生四足机器人CyberDog（铁蛋），售价9999元。',
         detail: 'CyberDog是小米在机器人领域的首次尝试，搭载NVIDIA Jetson Xavier NX平台，开放了大量的开发接口。这标志着小米开始探索智能硬件的前沿领域。',
@@ -299,11 +302,12 @@ class XiaomiData {
         isHighlight: true,
       ),
       TimelineEvent(
-        date: '2023.11',
+        date: '2023.12.28',
         title: '小米汽车技术发布会',
         description: '小米举办汽车技术发布会，首次公开小米SU7外观和核心技术参数。',
         detail: '小米SU7定位C级高性能生态科技轿车，采用小米自研的超级电机V8s（转速27200rpm，全球最高）、CTB一体化电池技术、全栈自研智能驾驶方案。外观设计引发全网热议，被称为"年轻人的第一台电车"。',
         tag: '产品',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Xiaomi_SU7_IMG_7175.jpg/640px-Xiaomi_SU7_IMG_7175.jpg',
       ),
     ],
   );
@@ -324,6 +328,7 @@ class XiaomiData {
         detail: '小米SU7是小米造车三年的成果，定位C级高性能生态科技轿车。标准版搭载单电机，Pro版和Max版搭载双电机四驱系统。Max版零百加速2.78秒，CLTC续航830km。上市后订单火爆，成为新能源车市场现象级产品。',
         tag: '里程碑',
         isHighlight: true,
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Xiaomi_SU7_IMG_7175.jpg/640px-Xiaomi_SU7_IMG_7175.jpg',
       ),
       TimelineEvent(
         date: '2024.04',
@@ -369,7 +374,7 @@ class XiaomiData {
         tag: '里程碑',
       ),
       TimelineEvent(
-        date: '2025.10',
+        date: '2024.10',
         title: '小米15系列发布',
         description: '小米15系列搭载骁龙8 Gen4+澎湃OS 3.0，AI能力全面升级。',
         detail: '小米15 Pro首次搭载小米自研影像芯片，AI拍照能力大幅提升。澎湃OS 3.0进一步优化了跨设备协同，让手机、汽车、智能家居无缝联动。',
