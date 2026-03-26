@@ -44,10 +44,45 @@ class BusinessScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // 顶部色条
-            Container(
-              height: 4,
-              color: color,
-            ),
+            Container(height: 4, color: color),
+            // 业务图片
+            if (segment.imageUrl != null)
+              ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(0),
+                  topRight: Radius.circular(0),
+                ),
+                child: Image.network(
+                  segment.imageUrl!,
+                  height: 180,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      height: 180,
+                      color: color.withOpacity(0.1),
+                      child: Center(
+                        child: Text(segment.icon, style: const TextStyle(fontSize: 64)),
+                      ),
+                    );
+                  },
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Container(
+                      height: 180,
+                      color: color.withOpacity(0.1),
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                              : null,
+                          color: color,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
             Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
