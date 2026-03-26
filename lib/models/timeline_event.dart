@@ -5,7 +5,7 @@ class TimelineEra {
   final String title;
   final String subtitle;
   final String yearRange;
-  final int colorValue; // Color as int for JSON serialization
+  final int colorValue;
   final String icon;
   final List<TimelineEvent> events;
 
@@ -27,6 +27,7 @@ class TimelineEvent {
   final String? detail;
   final String? tag;
   final bool isHighlight;
+  final String? imageUrl;
 
   TimelineEvent({
     required this.date,
@@ -35,6 +36,7 @@ class TimelineEvent {
     this.detail,
     this.tag,
     this.isHighlight = false,
+    this.imageUrl,
   });
 }
 
@@ -58,6 +60,7 @@ class BusinessSegment {
   final String icon;
   final int colorValue;
   final List<String> highlights;
+  final String? imageUrl;
 
   BusinessSegment({
     required this.name,
@@ -65,5 +68,6 @@ class BusinessSegment {
     required this.icon,
     required this.colorValue,
     required this.highlights,
+    this.imageUrl,
   });
 }
