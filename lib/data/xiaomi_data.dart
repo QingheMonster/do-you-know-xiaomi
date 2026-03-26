@@ -309,11 +309,11 @@ class XiaomiData {
     ],
   );
 
-  // 阶段五：造车时代 2024-2026
+  // 阶段五：人车家全生态 2024-2026
   static final TimelineEra _era5 = TimelineEra(
     id: 'era5',
-    title: '造车时代',
-    subtitle: '人车家全生态',
+    title: '人车家全生态',
+    subtitle: '手机、汽车、智能家居融合',
     yearRange: '2024-2026',
     colorValue: 0xFF00897B,
     icon: Icons.directions_car,
