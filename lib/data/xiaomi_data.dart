@@ -181,12 +181,12 @@ class XiaomiData {
     ],
   );
 
-  // 阶段三：逆转期 2016-2018
+  // 阶段三：逆转期 2016-2019
   static final TimelineEra _era3 = TimelineEra(
     id: 'era3',
     title: '低谷与逆转',
     subtitle: '绝处逢生，港股上市',
-    yearRange: '2016-2018',
+    yearRange: '2016-2019',
     colorValue: 0xFF5E35B1,
     icon: Icons.autorenew,
     events: [
@@ -234,18 +234,6 @@ class XiaomiData {
         detail: '这次合作让小米获得了美图在人像美颜方面的技术积累，后来小米Civi系列的出色自拍能力就源于此。',
         tag: '合作',
       ),
-    ],
-  );
-
-  // 阶段四：多元扩张 2019-2023
-  static final TimelineEra _era4 = TimelineEra(
-    id: 'era4',
-    title: '多元扩张',
-    subtitle: '高端化、AIoT、造车',
-    yearRange: '2019-2023',
-    colorValue: 0xFF1E88E5,
-    icon: Icons.trending_up,
-    events: [
       TimelineEvent(
         date: '2019.01.03',
         title: 'Redmi品牌独立',
@@ -257,10 +245,22 @@ class XiaomiData {
         date: '2019.07.22',
         title: '首次入选世界500强',
         description: '小米集团首次入选《财富》世界500强，排名第468位，成为最年轻的世界500强企业。',
-        detail: '从成立到入选世界500强，小米仅用了9年，打破了此前由acebook保持的纪录（12年）。这标志着小米从创业公司正式跻身全球顶级企业行列。',
+        detail: '从成立到入选世界500强，小米仅用了9年，打破了此前由Facebook保持的纪录（12年）。这标志着小米从创业公司正式跻身全球顶级企业行列。',
         tag: '里程碑',
         isHighlight: true,
       ),
+    ],
+  );
+
+  // 阶段四：多元扩张 2020-2023
+  static final TimelineEra _era4 = TimelineEra(
+    id: 'era4',
+    title: '多元扩张',
+    subtitle: '高端化、AIoT、造车',
+    yearRange: '2020-2023',
+    colorValue: 0xFF1E88E5,
+    icon: Icons.trending_up,
+    events: [
       TimelineEvent(
         date: '2020.02.13',
         title: '小米10系列发布',
