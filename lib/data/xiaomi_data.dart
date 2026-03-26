@@ -387,10 +387,10 @@ class XiaomiData {
     ],
   );
 
-  // 阶段六：AI的星辰大海 2025-2030
+  // 阶段六：AI的无限想象 2025-2030
   static final TimelineEra _era6 = TimelineEra(
     id: 'era6',
-    title: 'AI的星辰大海',
+    title: 'AI的无限想象',
     subtitle: '端侧AI、大模型、具身智能',
     yearRange: '2025-2030',
     colorValue: 0xFF7C4DFF,
