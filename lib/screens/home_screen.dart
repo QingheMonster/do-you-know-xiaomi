@@ -104,17 +104,28 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 width: 64,
                 height: 64,
                 decoration: BoxDecoration(
-                  color: AppTheme.xiaomiOrange,
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: const Center(
-                  child: Text(
-                    'Mi',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                    ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: Image.network(
+                    'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Xiaomi_logo_%282010-2021%29.svg/200px-Xiaomi_logo_%282010-2021%29.svg.png',
+                    width: 64,
+                    height: 64,
+                    fit: BoxFit.contain,
+                    errorBuilder: (context, error, stackTrace) {
+                      return const Center(
+                        child: Text(
+                          'MI',
+                          style: TextStyle(
+                            color: AppTheme.xiaomiOrange,
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
