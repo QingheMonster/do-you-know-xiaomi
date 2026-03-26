@@ -6,8 +6,8 @@ import 'screens/business_screen.dart';
 import 'screens/finances_screen.dart';
 import 'screens/products_screen.dart';
 import 'screens/tech_screen.dart';
+import 'screens/ai_screen.dart';
 import 'screens/leijun_screen.dart';
-import 'screens/honors_screen.dart';
 import 'screens/about_screen.dart';
 
 void main() {
@@ -44,8 +44,8 @@ class _MainScreenState extends State<MainScreen> {
     const ProductsScreen(),
     const FinancesScreen(),
     const TechScreen(),
+    const AIScreen(),
     const LeijunScreen(),
-    const HonorsScreen(),
     const AboutScreen(),
   ];
 
@@ -98,14 +98,14 @@ class _MainScreenState extends State<MainScreen> {
               label: '技术',
             ),
             BottomNavigationBarItem(
+              icon: Icon(Icons.psychology_outlined),
+              activeIcon: Icon(Icons.psychology),
+              label: 'AI',
+            ),
+            BottomNavigationBarItem(
               icon: Icon(Icons.person_outlined),
               activeIcon: Icon(Icons.person),
               label: '雷军',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.emoji_events_outlined),
-              activeIcon: Icon(Icons.emoji_events),
-              label: '荣誉',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.info_outline),
