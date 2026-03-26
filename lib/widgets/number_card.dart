@@ -11,12 +11,12 @@ class NumberCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
+            color: Colors.black.withOpacity(0.03),
+            blurRadius: 6,
+            offset: const Offset(0, 1),
           ),
         ],
       ),
@@ -26,7 +26,7 @@ class NumberCard extends StatelessWidget {
           Text(
             number.value,
             style: TextStyle(
-              fontSize: 22,
+              fontSize: 18,
               fontWeight: FontWeight.bold,
               color: Color(number.colorValue),
             ),
@@ -35,15 +35,15 @@ class NumberCard extends StatelessWidget {
             Text(
               number.unit!,
               style: TextStyle(
-                fontSize: 11,
+                fontSize: 10,
                 color: Colors.grey.shade500,
               ),
             ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 2),
           Text(
             number.label,
             style: TextStyle(
-              fontSize: 11,
+              fontSize: 10,
               color: Colors.grey.shade600,
               fontWeight: FontWeight.w500,
             ),

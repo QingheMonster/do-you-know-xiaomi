@@ -146,15 +146,15 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
   Widget _buildKeyNumbers(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       child: GridView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
-          childAspectRatio: 1.1,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
+          childAspectRatio: 1.4,
+          crossAxisSpacing: 8,
+          mainAxisSpacing: 8,
         ),
         itemCount: XiaomiData.keyNumbers.length,
         itemBuilder: (context, index) {
