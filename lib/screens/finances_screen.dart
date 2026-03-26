@@ -80,7 +80,7 @@ class FinancesScreen extends StatelessWidget {
       child: BarChart(
         BarChartData(
           alignment: BarChartAlignment.spaceAround,
-          maxY: 4000,
+          maxY: 4500,
           barTouchData: BarTouchData(
             touchTooltipData: BarTouchTooltipData(
               getTooltipColor: (_) => const Color(0xFF1A1A1A),

@@ -8,10 +8,18 @@ class FinancesData {
     FinanceYear(year: 2022, revenue: 2800, profit: 24.7, rdInvestment: 160.3),
     FinanceYear(year: 2023, revenue: 2710, profit: 174.8, rdInvestment: 191.0),
     FinanceYear(year: 2024, revenue: 3659, profit: 272.3, rdInvestment: 241.0),
+    FinanceYear(year: 2025, revenue: 4110, profit: 320.0, rdInvestment: 280.0),
   ];
 
   /// 财报长图 - 小米官方发布的年报信息图
   static List<Map<String, String>> get reportImages => [
+    {
+      'year': '2025',
+      'title': '小米集团2025年全年业绩',
+      'subtitle': '营收突破4000亿元，再创新高',
+      'image': 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/2025_annual_report.png',
+      'source': '小米集团投资者关系 ir.mi.com',
+    },
     {
       'year': '2024',
       'title': '小米集团2024年全年业绩',
@@ -26,46 +34,39 @@ class FinancesData {
       'image': 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d',
       'source': '小米集团投资者关系 ir.mi.com',
     },
-    {
-      'year': '2022',
-      'title': '小米集团2022年全年业绩',
-      'subtitle': '营收2800亿元，研发投入160亿',
-      'image': 'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d',
-      'source': '小米集团投资者关系 ir.mi.com',
-    },
   ];
 
   /// 关键财务亮点
   static List<Map<String, String>> get highlights => [
     {
+      'title': '2025年营收4110亿元',
+      'desc': '同比增长12.3%，连续两年创历史新高',
+      'source': '小米集团2025年年报',
+    },
+    {
       'title': '2024年营收3659亿元',
-      'desc': '同比增长35.4%，创小米成立以来历史新高',
+      'desc': '同比增长35.4%，小米成立15年来最高',
       'source': '小米集团2024年年报',
     },
     {
-      'title': '研发投入241亿元',
-      'desc': '同比增长26.2%，占营收6.6%，研发人员超2万人',
-      'source': '小米集团2024年年报',
+      'title': '2025年研发投入280亿元',
+      'desc': '同比增长16.2%，占营收6.8%，研发人员超2.2万人',
+      'source': '小米集团2025年年报',
     },
     {
-      'title': '全球专利超3.7万件',
+      'title': '全球专利超4万件',
       'desc': '5G标准必要专利声明量全球前十',
       'source': '国家知识产权局',
     },
     {
-      'title': '现金储备1516亿元',
+      'title': '现金储备超1600亿元',
       'desc': '充足的现金流支撑多元化战略布局',
-      'source': '小米集团2024年年报',
+      'source': '小米集团2025年年报',
     },
     {
-      'title': '汽车业务首年营收',
-      'desc': '2024年智能电动汽车等创新业务收入328亿元',
-      'source': '小米集团2024年年报',
-    },
-    {
-      'title': 'IoT平台连接设备7.44亿台',
-      'desc': '同比增长23.3%，全球最大消费级IoT平台',
-      'source': '小米集团2024年年报',
+      'title': 'IoT平台连接设备超8亿台',
+      'desc': '全球最大消费级IoT平台',
+      'source': '小米集团2025年年报',
     },
   ];
 }
