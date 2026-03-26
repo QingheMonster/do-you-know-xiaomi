@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../data/honors_data.dart';
 import '../theme/app_theme.dart';
 
@@ -119,28 +120,52 @@ class HonorsScreen extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 12),
-                // 一键分享按钮
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: OutlinedButton.icon(
-                    onPressed: () {
-                      Clipboard.setData(ClipboardData(text: item['share'] as String));
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('已复制，可直接粘贴分享'),
-                          duration: Duration(seconds: 1),
+                // 按钮行
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    // 视频按钮
+                    if (item['videoUrl'] != null)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8),
+                        child: OutlinedButton.icon(
+                          onPressed: () async {
+                            final url = Uri.parse(item['videoUrl'] as String);
+                            if (await canLaunchUrl(url)) {
+                              await launchUrl(url, mode: LaunchMode.externalApplication);
+                            }
+                          },
+                          icon: const Icon(Icons.play_circle_outline, size: 16),
+                          label: const Text('观看视频'),
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: const Color(0xFF1E88E5),
+                            side: const BorderSide(color: Color(0x331E88E5)),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          ),
                         ),
-                      );
-                    },
-                    icon: const Icon(Icons.share, size: 16),
-                    label: const Text('分享'),
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: AppTheme.xiaomiOrange,
-                      side: BorderSide(color: AppTheme.xiaomiOrange.withOpacity(0.3)),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      ),
+                    // 分享按钮
+                    OutlinedButton.icon(
+                      onPressed: () {
+                        Clipboard.setData(ClipboardData(text: item['share'] as String));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('已复制，可直接粘贴分享'),
+                            duration: Duration(seconds: 1),
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.share, size: 16),
+                      label: const Text('分享'),
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: AppTheme.xiaomiOrange,
+                        side: BorderSide(color: AppTheme.xiaomiOrange.withOpacity(0.3)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ],
             ),

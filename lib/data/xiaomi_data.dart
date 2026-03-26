@@ -305,7 +305,6 @@ class XiaomiData {
         description: '小米举办汽车技术发布会，首次公开小米SU7外观和核心技术参数。',
         detail: '小米SU7定位C级高性能生态科技轿车，采用小米自研的超级电机V8s（转速27200rpm，全球最高）、CTB一体化电池技术、全栈自研智能驾驶方案。外观设计引发全网热议，被称为"年轻人的第一台电车"。',
         tag: '产品',
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Xiaomi_SU7_IMG_7175.jpg/640px-Xiaomi_SU7_IMG_7175.jpg',
       ),
     ],
   );
@@ -326,7 +325,6 @@ class XiaomiData {
         detail: '小米SU7是小米造车三年的成果，定位C级高性能生态科技轿车。标准版搭载单电机，Pro版和Max版搭载双电机四驱系统。Max版零百加速2.78秒，CLTC续航830km。上市后订单火爆，成为新能源车市场现象级产品。',
         tag: '里程碑',
         isHighlight: true,
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Xiaomi_SU7_IMG_7175.jpg/640px-Xiaomi_SU7_IMG_7175.jpg',
       ),
       TimelineEvent(
         date: '2024.04',
