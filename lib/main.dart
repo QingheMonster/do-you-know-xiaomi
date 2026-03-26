@@ -7,7 +7,7 @@ import 'screens/finances_screen.dart';
 import 'screens/products_screen.dart';
 import 'screens/tech_screen.dart';
 import 'screens/leijun_screen.dart';
-import 'screens/myths_screen.dart';
+import 'screens/honors_screen.dart';
 import 'screens/about_screen.dart';
 
 void main() {
@@ -45,7 +45,7 @@ class _MainScreenState extends State<MainScreen> {
     const FinancesScreen(),
     const TechScreen(),
     const LeijunScreen(),
-    const MythsScreen(),
+    const HonorsScreen(),
     const AboutScreen(),
   ];
 
@@ -103,9 +103,9 @@ class _MainScreenState extends State<MainScreen> {
               label: '雷军',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.verified_outlined),
-              activeIcon: Icon(Icons.verified),
-              label: '澄清',
+              icon: Icon(Icons.emoji_events_outlined),
+              activeIcon: Icon(Icons.emoji_events),
+              label: '荣誉',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.info_outline),
