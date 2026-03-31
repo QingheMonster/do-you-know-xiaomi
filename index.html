@@ -1,38 +1,435 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小米科技档案馆</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0A0A0F;--orange:#FF6900;--ice:#00D4FF;--purple:#7B61FF;
+  --glass:rgba(255,255,255,0.06);--glass-border:rgba(255,255,255,0.1);
+  --text:#E8E8ED;--text2:#8B8B9E;
+}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;min-height:100vh}
+canvas#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
 
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
+/* Glass card */
+.glass{background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:16px}
 
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+/* Tab container */
+.tab-page{position:fixed;top:0;left:0;width:100%;height:calc(100vh - 64px);overflow-y:auto;overflow-x:hidden;z-index:1;display:none;opacity:0;transition:opacity .35s ease}
+.tab-page.active{display:block;opacity:1}
+.tab-page::-webkit-scrollbar{width:4px}
+.tab-page::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:4px}
 
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-  <base href="/do-you-know-xiaomi/">
+/* Bottom nav */
+.bottom-nav{position:fixed;bottom:0;left:0;width:100%;height:64px;z-index:100;display:flex;align-items:center;justify-content:space-around;background:rgba(10,10,15,.75);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid var(--glass-border)}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:6px 12px;border-radius:12px;transition:all .25s;color:var(--text2);font-size:11px;-webkit-tap-highlight-color:transparent}
+.nav-item .icon{font-size:20px}
+.nav-item.active{color:var(--orange)}
+.nav-item:active{transform:scale(.92)}
 
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+/* ============ TAB 1: HERO ============ */
+#hero{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px 100px}
+.hero-title{font-size:clamp(56px,14vw,120px);font-weight:900;letter-spacing:8px;background:linear-gradient(135deg,var(--orange),var(--ice));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1;margin-bottom:8px}
+.hero-sub{font-size:clamp(14px,3vw,20px);color:var(--text2);margin-bottom:48px;letter-spacing:2px}
+.stats-row{display:flex;gap:24px;margin-bottom:56px;flex-wrap:wrap;justify-content:center}
+.stat-card{padding:24px 32px;text-align:center;min-width:120px}
+.stat-num{font-family:'SF Mono','Fira Code','Cascadia Code',monospace;font-size:clamp(28px,6vw,48px);font-weight:800;background:linear-gradient(135deg,var(--orange),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-label{font-size:13px;color:var(--text2);margin-top:4px}
+.era-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;width:100%;max-width:700px}
+.era-card{padding:20px 16px;cursor:pointer;transition:all .3s;text-align:center;border:1px solid transparent}
+.era-card:hover,.era-card:active{border-color:var(--orange);transform:translateY(-4px);box-shadow:0 8px 32px rgba(255,105,0,.15)}
+.era-icon{font-size:28px;margin-bottom:8px}
+.era-name{font-size:15px;font-weight:700;margin-bottom:4px}
+.era-range{font-size:12px;color:var(--text2);font-family:monospace}
 
-  <!-- iOS meta tags & icons -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="xiaomi_timeline">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+/* ============ TAB 2: TIMELINE ============ */
+#timeline{padding:60px 20px 100px;max-width:800px;margin:0 auto}
+.tl-year{margin-bottom:48px}
+.tl-year-num{font-family:'SF Mono','Fira Code','Cascadia Code',monospace;font-size:clamp(40px,10vw,72px);font-weight:900;color:rgba(255,255,255,.08);line-height:1;margin-bottom:16px;position:relative}
+.tl-year-num span{background:linear-gradient(90deg,var(--orange),var(--ice));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.tl-events{border-left:2px solid rgba(255,255,255,.08);padding-left:24px;margin-left:8px;position:relative}
+.tl-events::before{content:'';position:absolute;left:-5px;top:0;width:8px;height:8px;border-radius:50%;background:var(--orange)}
+.tl-card{margin-bottom:20px;padding:20px;opacity:0;transform:translateY(30px);transition:all .5s cubic-bezier(.16,1,.3,1)}
+.tl-card.visible{opacity:1;transform:translateY(0)}
+.tl-card.highlight{border-left:3px solid var(--orange);background:rgba(255,105,0,.06)}
+.tl-date{font-family:monospace;font-size:12px;color:var(--orange);margin-bottom:6px}
+.tl-title{font-size:16px;font-weight:700;margin-bottom:6px}
+.tl-desc{font-size:13px;color:var(--text2);line-height:1.6}
+.tl-tag{display:inline-block;font-size:10px;padding:2px 8px;border-radius:20px;margin-top:8px;font-weight:600}
+.tl-tag.里程碑{background:rgba(255,105,0,.15);color:var(--orange)}
+.tl-tag.产品{background:rgba(0,212,255,.12);color:var(--ice)}
+.tl-tag.战略{background:rgba(123,97,255,.12);color:var(--purple)}
+.tl-tag.危机{background:rgba(255,60,60,.12);color:#ff5555}
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+/* ============ TAB 3: PRODUCTS ============ */
+#products{padding:60px 0 100px}
+.products-title{font-size:clamp(24px,5vw,36px);font-weight:900;text-align:center;margin-bottom:32px;padding:0 20px}
+.products-title span{color:var(--orange)}
+.products-scroll{display:flex;gap:20px;overflow-x:auto;padding:0 20px 20px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.products-scroll::-webkit-scrollbar{height:4px}
+.products-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:4px}
+.product-card{min-width:280px;max-width:320px;flex-shrink:0;scroll-snap-align:start;padding:32px 24px;text-align:center;border:1px solid var(--glass-border);transition:all .3s}
+.product-card:hover{border-color:var(--orange);box-shadow:0 12px 48px rgba(255,105,0,.12)}
+.product-emoji{font-size:48px;margin-bottom:16px}
+.product-name{font-size:20px;font-weight:800;margin-bottom:8px}
+.product-data{font-family:monospace;font-size:14px;color:var(--orange);margin-bottom:12px}
+.product-desc{font-size:13px;color:var(--text2);line-height:1.6}
 
-  <title>xiaomi_timeline</title>
-  <link rel="manifest" href="manifest.json">
+/* ============ TAB 4: FINANCIALS ============ */
+#financials{padding:60px 20px 100px;max-width:800px;margin:0 auto}
+.fin-title{font-size:clamp(24px,5vw,36px);font-weight:900;text-align:center;margin-bottom:32px}
+.fin-title span{color:var(--ice)}
+.metric-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-bottom:48px}
+.metric-card{padding:20px;text-align:center}
+.metric-val{font-family:monospace;font-size:clamp(22px,5vw,32px);font-weight:800;color:var(--ice)}
+.metric-label{font-size:12px;color:var(--text2);margin-top:4px}
+.chart-container{margin-top:16px}
+.chart-title{font-size:16px;font-weight:700;margin-bottom:20px;color:var(--text2)}
+.bar-chart{display:flex;align-items:flex-end;gap:12px;height:220px;padding:0 4px}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px}
+.bar{width:100%;border-radius:8px 8px 0 0;background:linear-gradient(180deg,var(--orange),rgba(255,105,0,.3));min-height:4px;transition:height 1s cubic-bezier(.16,1,.3,1)}
+.bar-label{font-size:11px;color:var(--text2);font-family:monospace}
+.bar-value{font-size:11px;font-weight:700;color:var(--orange);font-family:monospace}
+
+/* ============ TAB 5: ABOUT ============ */
+#about{padding:60px 20px 100px;max-width:600px;margin:0 auto;text-align:center}
+.about-logo{font-size:64px;margin-bottom:16px}
+.about-name{font-size:28px;font-weight:900;margin-bottom:24px;background:linear-gradient(135deg,var(--orange),var(--ice));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.about-text{font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:32px;text-align:left}
+.about-card{padding:24px;margin-bottom:16px;text-align:left}
+.about-card h3{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--ice)}
+.about-card p{font-size:13px;color:var(--text2);line-height:1.6}
+.version{font-size:11px;color:var(--text2);margin-top:40px;opacity:.5}
+
+/* Fade-in utility */
+.fade-in{opacity:0;transform:translateY(24px);transition:all .6s cubic-bezier(.16,1,.3,1)}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+/* Mobile tweaks */
+@media(max-width:400px){
+  .era-grid{grid-template-columns:repeat(2,1fr)}
+  .stats-row{gap:12px}
+  .stat-card{min-width:90px;padding:16px}
+  .product-card{min-width:240px}
+}
+</style>
 </head>
 <body>
-  <script src="flutter_bootstrap.js" async></script>
+<canvas id="particles"></canvas>
+
+<!-- ===== TAB 1: HERO ===== -->
+<div class="tab-page active" id="hero">
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100%">
+    <h1 class="hero-title">XIAOMI</h1>
+    <p class="hero-sub">从14人到世界500强</p>
+    <div class="stats-row">
+      <div class="glass stat-card"><div class="stat-num" data-target="16" data-suffix="年">0</div><div class="stat-label">创业历程</div></div>
+      <div class="glass stat-card"><div class="stat-num" data-target="500" data-suffix="强">0</div><div class="stat-label">世界排名</div></div>
+      <div class="glass stat-card"><div class="stat-num" data-target="3.7" data-suffix="亿" data-decimal="1">0</div><div class="stat-label">全球用户</div></div>
+    </div>
+    <div class="era-grid">
+      <div class="glass era-card" onclick="goToEra(2010)"><div class="era-icon">🌱</div><div class="era-name">创业时代</div><div class="era-range">2010–2013</div></div>
+      <div class="glass era-card" onclick="goToEra(2014)"><div class="era-icon">🚀</div><div class="era-name">爆发时代</div><div class="era-range">2014–2016</div></div>
+      <div class="glass era-card" onclick="goToEra(2016)"><div class="era-icon">🔄</div><div class="era-name">低谷与逆转</div><div class="era-range">2016–2018</div></div>
+      <div class="glass era-card" onclick="goToEra(2019)"><div class="era-icon">📈</div><div class="era-name">多元扩张</div><div class="era-range">2019–2023</div></div>
+      <div class="glass era-card" onclick="goToEra(2024)"><div class="era-icon">🏎️</div><div class="era-name">造车时代</div><div class="era-range">2024–2026</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TAB 2: TIMELINE ===== -->
+<div class="tab-page" id="timeline"></div>
+
+<!-- ===== TAB 3: PRODUCTS ===== -->
+<div class="tab-page" id="products">
+  <h2 class="products-title">产品<span>里程碑</span></h2>
+  <div class="products-scroll" id="productsScroll"></div>
+</div>
+
+<!-- ===== TAB 4: FINANCIALS ===== -->
+<div class="tab-page" id="financials">
+  <h2 class="fin-title">财报<span>数据</span></h2>
+  <div class="metric-grid" id="metrics"></div>
+  <div class="chart-container glass" style="padding:24px">
+    <div class="chart-title">营收趋势（亿元）</div>
+    <div class="bar-chart" id="revenueChart"></div>
+  </div>
+</div>
+
+<!-- ===== TAB 5: ABOUT ===== -->
+<div class="tab-page" id="about">
+  <div class="about-logo">📱</div>
+  <div class="about-name">小米科技档案馆</div>
+  <div class="about-text">
+    小米集团成立于2010年4月6日，由雷军等8位创始人在北京中关村银谷大厦的一间小办公室里，以一碗小米粥开启了创业征程。从最初的14人团队，到如今的世界500强企业，小米用"为发烧而生"的精神，重新定义了智能手机行业，并构建起全球最大的消费级IoT平台。
+  </div>
+  <div class="glass about-card">
+    <h3>🏢 公司信息</h3>
+    <p>全称：小米集团<br>港交所：1810.HK<br>总部：中国北京<br>创始人：雷军<br>成立：2010年4月6日</p>
+  </div>
+  <div class="glass about-card">
+    <h3>🎯 核心理念</h3>
+    <p>"让每个人都能享受科技的乐趣"<br>始终坚持"感动人心、价格厚道"</p>
+  </div>
+  <div class="glass about-card">
+    <h3>🌍 业务版图</h3>
+    <p>智能手机 · AIoT · 智能电动汽车<br>互联网服务 · 新零售</p>
+  </div>
+  <div class="version">小米科技档案馆 v1.0 · 纯前端离线版本 · 数据截至2025年</div>
+</div>
+
+<!-- ===== BOTTOM NAV ===== -->
+<nav class="bottom-nav">
+  <div class="nav-item active" data-tab="hero"><span class="icon">🏠</span><span>首页</span></div>
+  <div class="nav-item" data-tab="timeline"><span class="icon">📅</span><span>时间线</span></div>
+  <div class="nav-item" data-tab="products"><span class="icon">🏆</span><span>产品</span></div>
+  <div class="nav-item" data-tab="financials"><span class="icon">📊</span><span>财报</span></div>
+  <div class="nav-item" data-tab="about"><span class="icon">ℹ️</span><span>关于</span></div>
+</nav>
+
+<script>
+// ============ DATA ============
+const timelineData = [
+  { year: 2010, events: [
+    { date: '2010.04.06', title: '小米正式成立', desc: '雷军等8位创始人在中关村银谷大厦喝小米粥创业，14人团队起步', tag: '里程碑', highlight: true },
+    { date: '2010.08.16', title: 'MIUI 首个内测版发布', desc: '100名梦想赞助商参与内测，"为发烧而生"诞生', tag: '产品' }
+  ]},
+  { year: 2011, events: [
+    { date: '2011.08.16', title: '小米手机1 发布', desc: '定价1999元，搭载高通双核1.5GHz，互联网手机时代正式开启', tag: '里程碑', highlight: true }
+  ]},
+  { year: 2012, events: [
+    { date: '2012.08.16', title: '小米手机2 发布', desc: '搭载高通APQ8064四核处理器，生命周期销量突破千万台', tag: '产品' }
+  ]},
+  { year: 2013, events: [
+    { date: '2013.07.31', title: '红米手机发布', desc: '定价799元，正式进军千元机市场，国民手机概念兴起', tag: '产品' },
+    { date: '2013.08', title: '小米电视发布', desc: '定价2999元，47英寸3D智能电视，开启客厅生态布局', tag: '产品' }
+  ]},
+  { year: 2014, events: [
+    { date: '2014年初', title: '生态链计划启动', desc: '以"投资+孵化"模式打造小米生态链，覆盖智能家居全品类', tag: '战略' },
+    { date: '2014年', title: '国内手机销量第一', desc: '全年出货6112万台，估值达450亿美元，全球第三大智能手机厂商', tag: '里程碑', highlight: true }
+  ]},
+  { year: 2015, events: [
+    { date: '2015.04', title: '国际化起航', desc: '正式进入印度市场，开启全球化征程', tag: '战略' }
+  ]},
+  { year: 2016, events: [
+    { date: '2016.10.25', title: '小米MIX 发布', desc: '全球首款全面屏概念手机，91.3%屏占比，引领行业设计革命', tag: '里程碑', highlight: true },
+    { date: '2016年', title: '销量暴跌', desc: '出货量跌36%，跌出全球前五，供应链危机全面爆发', tag: '危机', highlight: true }
+  ]},
+  { year: 2017, events: [
+    { date: '2017年', title: '补课改革', desc: '雷军亲自抓供应链，大力建设小米之家，坪效做到全球第二', tag: '战略' },
+    { date: '2017Q4', title: '重回全球前五', desc: 'V型反转完成，成为哈佛商学院经典教学案例', tag: '里程碑', highlight: true }
+  ]},
+  { year: 2018, events: [
+    { date: '2018.07.09', title: '港交所上市', desc: '1810.HK，成为港股首家"同股不同权"上市公司，发行价17港元', tag: '里程碑', highlight: true }
+  ]},
+  { year: 2019, events: [
+    { date: '2019.01', title: 'Redmi 品牌独立', desc: '红米升级为独立品牌Redmi，小米+Redmi双品牌战略确立', tag: '战略' },
+    { date: '2019.07', title: '世界500强', desc: '以成立仅9年成为最年轻的世界500强企业', tag: '里程碑', highlight: true }
+  ]},
+  { year: 2020, events: [
+    { date: '2020.02', title: '小米10 系列发布', desc: '首次冲击高端市场，定价4999元起，搭载骁龙865', tag: '产品' }
+  ]},
+  { year: 2021, events: [
+    { date: '2021.03', title: '雷军宣布造车', desc: '"这是我最后一次重大创业，我愿意押上人生所有积累的战绩和声誉"', tag: '里程碑', highlight: true }
+  ]},
+  { year: 2023, events: [
+    { date: '2023.10', title: '小米澎湃OS 发布', desc: 'Xiaomi HyperOS，实现人车家全生态操作系统统一', tag: '战略' }
+  ]},
+  { year: 2024, events: [
+    { date: '2024.03.28', title: '小米SU7 上市', desc: '定价21.59万起，24小时大定88898台，震撼汽车行业', tag: '里程碑', highlight: true },
+    { date: '2024.10', title: 'SU7 Ultra 纽北刷圈', desc: '6分46秒874，刷新纽北最速四门电动车纪录', tag: '里程碑', highlight: true },
+    { date: '2024.12', title: '全年交付超13万辆', desc: '创下新势力首年交付纪录，远超市场预期', tag: '里程碑', highlight: true }
+  ]},
+  { year: 2025, events: [
+    { date: '2025.02', title: 'SU7 Ultra 量产版上市', desc: '售价52.99万元，地表最快四门量产车', tag: '产品' },
+    { date: '2025.06', title: '累计交付突破20万辆', desc: '小米汽车持续加速，产品矩阵即将扩展', tag: '里程碑', highlight: true }
+  ]}
+];
+
+const products = [
+  { emoji: '📱', name: '小米手机1', data: '1999元 · 首款互联网手机', desc: '2011年发布，搭载高通双核1.5GHz，以极致性价比颠覆行业，开启互联网手机时代。' },
+  { emoji: '🔲', name: '小米MIX', data: '91.3%屏占比 · 全面屏鼻祖', desc: '2016年发布，全球首款全面屏概念手机，由Philippe Starck设计，被芬兰设计博物馆收藏。' },
+  { emoji: '📸', name: '小米12S Ultra', data: '1英寸大底 · 徕卡影像', desc: '2022年发布，首发索尼IMX989一英寸传感器，与徕卡联合调校，影像实力登顶。' },
+  { emoji: '🏎️', name: '小米SU7', data: '21.59万起 · 24h大定88898台', desc: '2024年发布，C级高性能生态科技轿车，百公里加速2.78秒，重新定义智能电动车。' },
+  { emoji: '⚡', name: '小米澎湃OS', data: '人车家全生态', desc: '2023年发布，Xiaomi HyperOS统一操作系统，连接手机、汽车、智能家居全场景。' },
+  { emoji: '🏁', name: 'SU7 Ultra', data: '纽北6:46.874 · 52.99万元', desc: '2025年量产上市，三电机1548马力，纽北最速四门电动车，地表最快量产轿车之一。' }
+];
+
+const revenueData = [
+  { year: '2019', value: 2058 },
+  { year: '2020', value: 2459 },
+  { year: '2021', value: 3283 },
+  { year: '2022', value: 2800 },
+  { year: '2023', value: 2710 },
+  { year: '2024', value: 3650 },
+  { year: '2025E', value: 4200 }
+];
+
+const metrics = [
+  { val: '8760亿', label: '市值（港元）' },
+  { val: '3650亿', label: '2024营收（元）' },
+  { val: '1.69亿', label: '手机出货量' },
+  { val: '7.8亿', label: 'IoT设备连接' }
+];
+
+// ============ PARTICLES ============
+(function(){
+  const c = document.getElementById('particles'), ctx = c.getContext('2d');
+  let w, h, pts = [];
+  function resize(){ w = c.width = window.innerWidth; h = c.height = window.innerHeight; }
+  function init(){
+    resize();
+    pts = Array.from({length: Math.min(80, Math.floor(w*h/12000))}, ()=>({
+      x: Math.random()*w, y: Math.random()*h,
+      vx: (Math.random()-.5)*.3, vy: (Math.random()-.5)*.3,
+      r: Math.random()*1.5+.5, a: Math.random()*.4+.1
+    }));
+  }
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    pts.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0)p.x=w; if(p.x>w)p.x=0;
+      if(p.y<0)p.y=h; if(p.y>h)p.y=0;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,105,0,${p.a})`; ctx.fill();
+    });
+    // connect nearby
+    for(let i=0;i<pts.length;i++) for(let j=i+1;j<pts.length;j++){
+      const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=dx*dx+dy*dy;
+      if(d<10000){ ctx.beginPath(); ctx.moveTo(pts[i].x,pts[i].y); ctx.lineTo(pts[j].x,pts[j].y);
+        ctx.strokeStyle=`rgba(255,255,255,${.04*(1-d/10000)})`; ctx.stroke(); }
+    }
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize', init);
+  init(); draw();
+})();
+
+// ============ TAB SWITCH ============
+const navItems = document.querySelectorAll('.nav-item');
+const pages = document.querySelectorAll('.tab-page');
+navItems.forEach(n=>n.addEventListener('click',()=>{
+  const t = n.dataset.tab;
+  navItems.forEach(x=>x.classList.remove('active'));
+  n.classList.add('active');
+  pages.forEach(p=>{ p.classList.remove('active'); p.style.display='none'; });
+  const target = document.getElementById(t);
+  target.style.display='block';
+  requestAnimationFrame(()=>target.classList.add('active'));
+  // Trigger animations for newly visible tab
+  if(t==='hero') animateNumbers();
+  if(t==='timeline') observeTimeline();
+  if(t==='financials') animateChart();
+}));
+
+// ============ NUMBER COUNTER ============
+function animateNumbers(){
+  document.querySelectorAll('.stat-num').forEach(el=>{
+    if(el.dataset.done) return;
+    el.dataset.done='1';
+    const target = parseFloat(el.dataset.target);
+    const suffix = el.dataset.suffix||'';
+    const dec = parseInt(el.dataset.decimal)||0;
+    const dur = 1500;
+    const start = performance.now();
+    function tick(now){
+      const p = Math.min((now-start)/dur, 1);
+      const ease = 1-Math.pow(1-p,3);
+      el.textContent = (target*ease).toFixed(dec) + suffix;
+      if(p<1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  });
+}
+
+// ============ BUILD TIMELINE ============
+function buildTimeline(){
+  const container = document.getElementById('timeline');
+  let html = '';
+  timelineData.forEach(y=>{
+    html += `<div class="tl-year" id="year-${y.year}"><div class="tl-year-num"><span>${y.year}</span></div><div class="tl-events">`;
+    y.events.forEach(e=>{
+      html += `<div class="glass tl-card ${e.highlight?'highlight':''}">
+        <div class="tl-date">${e.date}</div>
+        <div class="tl-title">${e.title}</div>
+        <div class="tl-desc">${e.desc}</div>
+        <span class="tl-tag ${e.tag}">${e.tag}</span>
+      </div>`;
+    });
+    html += '</div></div>';
+  });
+  container.innerHTML = html;
+}
+buildTimeline();
+
+// ============ TIMELINE OBSERVER ============
+function observeTimeline(){
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, {threshold:0.15, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.tl-card').forEach(c=>obs.observe(c));
+}
+// Observe on load for hero cards too
+const fadeObs = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold:0.15});
+document.querySelectorAll('.fade-in').forEach(c=>fadeObs.observe(c));
+
+// ============ BUILD PRODUCTS ============
+(function(){
+  const container = document.getElementById('productsScroll');
+  container.innerHTML = products.map(p=>`
+    <div class="glass product-card">
+      <div class="product-emoji">${p.emoji}</div>
+      <div class="product-name">${p.name}</div>
+      <div class="product-data">${p.data}</div>
+      <div class="product-desc">${p.desc}</div>
+    </div>
+  `).join('');
+})();
+
+// ============ BUILD FINANCIALS ============
+(function(){
+  document.getElementById('metrics').innerHTML = metrics.map(m=>`
+    <div class="glass metric-card"><div class="metric-val">${m.val}</div><div class="metric-label">${m.label}</div></div>
+  `).join('');
+  const maxRev = Math.max(...revenueData.map(d=>d.value));
+  document.getElementById('revenueChart').innerHTML = revenueData.map(d=>{
+    const h = Math.round((d.value/maxRev)*180);
+    return `<div class="bar-col"><div class="bar-value">${d.value}</div><div class="bar" data-h="${h}" style="height:0px"></div><div class="bar-label">${d.year}</div></div>`;
+  }).join('');
+})();
+
+function animateChart(){
+  document.querySelectorAll('.bar[data-h]').forEach(b=>{
+    setTimeout(()=>{ b.style.height = b.dataset.h+'px'; }, 100);
+  });
+}
+
+// ============ GO TO ERA ============
+function goToEra(year){
+  // Switch to timeline tab
+  navItems.forEach(x=>x.classList.remove('active'));
+  document.querySelector('[data-tab="timeline"]').classList.add('active');
+  pages.forEach(p=>{ p.classList.remove('active'); p.style.display='none'; });
+  const tl = document.getElementById('timeline');
+  tl.style.display='block';
+  requestAnimationFrame(()=>tl.classList.add('active'));
+  observeTimeline();
+  // Scroll to year
+  setTimeout(()=>{
+    const el = document.getElementById('year-'+year);
+    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  }, 100);
+}
+
+// Initial hero animation
+animateNumbers();
+</script>
 </body>
 </html>
